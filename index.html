@@ -376,6 +376,13 @@ class Component extends DCLogic {
     }
   }
 
+  armUpright() {
+    clearTimeout(this.uprightT);
+    this.uprightT = setTimeout(() => {
+      if (this.state.flip || this.state.turns) this.setState({ flip: false, turns: 0 });
+    }, 20000);
+  }
+
   drawMoat() {
     if (!this.card) return;
     this.moatFired = true;
@@ -882,8 +889,8 @@ class Component extends DCLogic {
         this.redraw();
         this.setState({ flip: false, turns: 0, draw: false, menu: false, share: false, status: '', emailPhase: 'idle', splash: false, crop: { l: 0, t: 0, r: 0, b: 0 } });
       },
-      onFlip: () => this.setState({ flip: !this.state.flip, draw: false }),
-      onRotate: () => this.setState({ turns: this.state.turns + 1, draw: false }),
+      onFlip: () => { this.setState({ flip: !this.state.flip, draw: false }); this.armUpright(); },
+      onRotate: () => { this.setState({ turns: this.state.turns + 1, draw: false }); this.armUpright(); },
       onDraw: () => this.setState({ draw: !this.state.draw }),
       onMenu: () => {
         const closing = this.state.menu;
