@@ -47,7 +47,7 @@ button:focus-visible,a:focus-visible{outline:2px solid #ffffff;outline-offset:3p
 </sc-if>
 <sc-if value="{{ showMain }}" hint-placeholder-val="{{ false }}">
 <div style="position: relative; z-index: 2; display: flex; align-items: center; justify-content: space-between; gap: 4px">
-<div style="display: flex; align-items: center; gap: 2px; visibility: {{ backVis }}; opacity: {{ barOpacity }}; pointer-events: {{ barPE }}; transition: opacity 0.6s ease">
+<div style="display: flex; align-items: center; gap: 2px; opacity: {{ barOpacity }}; transform: {{ barShift }}; filter: {{ barBlur }}; pointer-events: {{ barPE }}; transition: opacity 0.5s ease, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), filter 0.5s ease">
 <button type="button" aria-label="Reset to the first version" aria-disabled="{{ resetOff }}" onClick="{{ onReset }}" style="opacity: {{ resetOpacity }}; width: 44px; height: 44px; border: 0; border-radius: 22px; background: transparent; color: rgba(255,255,255,0.92); display: grid; place-items: center; padding: 0; cursor: pointer; text-decoration: none">
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18" /> <path d="m6 6 12 12" /></svg>
 </button>
@@ -57,12 +57,12 @@ button:focus-visible,a:focus-visible{outline:2px solid #ffffff;outline-offset:3p
 <button type="button" aria-label="Rotate card 90 degrees" onClick="{{ onRotate }}" style="width: 44px; height: 44px; border: 0; border-radius: 22px; background: transparent; color: rgba(255,255,255,0.92); display: grid; place-items: center; padding: 0; cursor: pointer; text-decoration: none">
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 9V7a2 2 0 0 0-2-2h-6" /> <path d="m15 2-3 3 3 3" /> <path d="M20 13v5a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h2" /></svg>
 </button>
-<button type="button" aria-label="Draw on the screen" aria-pressed="{{ draw }}" onClick="{{ onDraw }}" style="visibility: {{ backVis }}; width: 44px; height: 44px; border: 0; border-radius: 22px; background: {{ penBg }}; color: {{ penColor }}; display: grid; place-items: center; padding: 0; cursor: pointer; text-decoration: none">
+<button type="button" aria-label="Draw on the screen" aria-pressed="{{ draw }}" onClick="{{ onDraw }}" style="width: 44px; height: 44px; border: 0; border-radius: 22px; background: {{ penBg }}; color: {{ penColor }}; display: grid; place-items: center; padding: 0; cursor: pointer; text-decoration: none">
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m18 13-.654-4.736a4 4 0 00-2.756-3.266l-9.163-2.9a2 2 0 00-2.017.493l-.82.819a2 2 0 00-.492 2.017l2.9 9.163a4 4 0 003.266 2.756L13 18" /> <path d="M18.648 12.352a1.205 1.205 0 011.704 0l1.296 1.296a1.205 1.205 0 010 1.704l-6.296 6.296a1.205 1.205 0 01-1.704 0l-1.296-1.296a1.205 1.205 0 010-1.704z" /> <path d="m3 3 6.586 6.586" /> <circle cx="11" cy="11" r="2" /></svg>
 </button>
 </div>
 <div style="display: flex; align-items: center; gap: 2px">
-<button type="button" aria-label="Get in touch" aria-expanded="{{ shareOpen }}" onClick="{{ onShare }}" style="visibility: {{ backVis }}; opacity: {{ barOpacity }}; pointer-events: {{ barPE }}; transition: opacity 0.6s ease; width: 44px; height: 44px; border: 0; border-radius: 22px; background: transparent; color: rgba(255,255,255,0.92); display: grid; place-items: center; padding: 0; cursor: pointer; text-decoration: none">
+<button type="button" aria-label="Get in touch" aria-expanded="{{ shareOpen }}" onClick="{{ onShare }}" style="opacity: {{ barOpacity }}; transform: {{ barShift }}; filter: {{ barBlur }}; pointer-events: {{ barPE }}; transition: opacity 0.5s ease 0.06s, transform 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.06s, filter 0.5s ease 0.06s; width: 44px; height: 44px; border: 0; border-radius: 22px; background: transparent; color: rgba(255,255,255,0.92); display: grid; place-items: center; padding: 0; cursor: pointer; text-decoration: none">
 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v13" /> <path d="m16 6-4-4-4 4" /> <path d="M4 12v8a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-8" /></svg>
 </button>
 <button type="button" aria-label="Menu" aria-expanded="{{ menuOpen }}" onClick="{{ onMenu }}" style="width: 44px; height: 44px; border: 0; border-radius: 22px; background: {{ menuBg }}; color: {{ menuColor }}; transition: background 0.5s ease, color 0.5s ease; display: grid; place-items: center; padding: 0; cursor: pointer">
@@ -727,8 +727,10 @@ class Component extends DCLogic {
       tagText: ['people remember how\nyou make them feel.', 'your story is the moat.\nnot your product.', 'less is more.'][((this.quoteIdx || 0) % 3 + 3) % 3],
       onTag: (e) => this.flipTag(e.target),
       markColor: night ? '#FFE3CC' : '#ffffff',
-      barOpacity: s.idle && !s.draw && !s.menu && !s.share ? 0 : 1,
-      barPE: s.idle && !s.draw && !s.menu && !s.share ? 'none' : 'auto',
+      barOpacity: s.menu || (s.idle && !s.draw && !s.share) ? 0 : 1,
+      barPE: s.menu || (s.idle && !s.draw && !s.share) ? 'none' : 'auto',
+      barShift: s.menu ? 'translateY(-8px)' : 'translateY(0)',
+      barBlur: s.menu ? 'blur(3px)' : 'blur(0)',
       clock: s.clock,
       wifi3: s.wifiLvl >= 3 ? 1 : 0.3,
       wifi2: s.wifiLvl >= 2 ? 1 : 0.3,
