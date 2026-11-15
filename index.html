@@ -368,14 +368,15 @@ class Component extends DCLogic {
     const m = document.createElement('div');
     m.setAttribute('data-moat', '1');
     m.setAttribute('data-keep', '1');
-    m.style.cssText = 'position:absolute;left:-9px;top:-9px;right:-9px;bottom:-9px;border:1px solid rgba(255,244,236,0.55);border-radius:2px;pointer-events:none;z-index:2';
+    m.style.cssText = 'position:absolute;left:-30px;top:-30px;right:-30px;bottom:-30px;border:1px solid rgba(255,244,236,0.6);border-radius:2px;pointer-events:none;z-index:2;opacity:0';
     host.appendChild(m);
+    const out = '-30px', end = '0px';
     const a = m.animate([
-      { opacity: 0, transform: 'scale(1.06)' },
-      { opacity: 1, transform: 'scale(1)', offset: 0.3 },
-      { opacity: 1, transform: 'scale(1)', offset: 0.7 },
-      { opacity: 0, transform: 'scale(0.995)' }
-    ], { duration: 3200, easing: 'ease-in-out' });
+      { opacity: 0, left: out, top: out, right: out, bottom: out },
+      { opacity: 1, left: '-24px', top: '-24px', right: '-24px', bottom: '-24px', offset: 0.28 },
+      { opacity: 0.9, left: '-20px', top: '-20px', right: '-20px', bottom: '-20px', offset: 0.5 },
+      { opacity: 0, left: end, top: end, right: end, bottom: end }
+    ], { duration: 3000, easing: 'cubic-bezier(0.45, 0, 0.25, 1)' });
     a.onfinish = () => m.remove();
   }
 
@@ -699,7 +700,7 @@ class Component extends DCLogic {
     const hr = new Date().getHours();
     const night = hr >= 20 || hr < 6;
     return {
-      tagText: (() => { const h = new Date().getHours(); return h >= 0 && h < 5 ? "good stories are told at night." : 'storytelling for the AI era'; })(),
+      tagText: 'storytelling for the AI era',
       onTag: (e) => this.flipTag(e.target),
       markColor: night ? '#FFE3CC' : '#ffffff',
       barOpacity: s.idle && !s.draw && !s.menu && !s.share ? 0 : 1,
