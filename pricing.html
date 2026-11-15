@@ -70,8 +70,7 @@ button:focus-visible,a:focus-visible{outline:2px solid #ffffff;outline-offset:3p
 </div>
 
 <div style="position: relative; display: flex; justify-content: center; align-items: center; min-height: 48px; margin-bottom: 28px; font-size: 15px; letter-spacing: 0.01em">
-<span style="min-height: 3.4em; vertical-align: top; display: inline-block; padding: 4px 9px; color: rgba(255,255,255,0.55); font-size: 14px; text-align: center; white-space: pre-line">your story is the moat.
-not your product.</span>
+<span onClick="{{ onTag }}" style="min-height: 3.4em; vertical-align: top; cursor: pointer; display: inline-block; padding: 4px 9px; color: rgba(255,255,255,0.55); font-size: 14px">storytelling for the AI era</span>
 </div>
 
 </div>
@@ -333,6 +332,31 @@ class Component extends DCLogic {
     };
   }
 
+  flipTag(el) {
+    if (!el || el.__busy) return;
+    el.__busy = true;
+    const A = el.__orig || (el.__orig = el.textContent);
+    const B = 'your story is the moat.\nnot your product.';
+    const next = el.__alt ? A : B;
+    el.__alt = !el.__alt;
+    clearTimeout(el.__t);
+    if (el.__alt) el.__t = setTimeout(() => this.flipTag(el), 4800);
+    el.style.whiteSpace = 'pre-line';
+    el.style.textAlign = 'center';
+    el.style.verticalAlign = 'top';
+    el.style.minHeight = '3.4em';
+    el.style.willChange = 'opacity';
+    el.style.transition = 'opacity 0.6s ease';
+    el.style.opacity = '0';
+    setTimeout(() => {
+      el.textContent = next;
+      void el.offsetWidth;
+      el.style.transition = 'opacity 0.9s ease';
+      el.style.opacity = '1';
+      setTimeout(() => { el.__busy = false; }, 900);
+    }, 620);
+  }
+
   attachSpark(el, allow) {
     if (!el) return () => {};
     try { if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return () => {}; } catch (e) {}
@@ -404,6 +428,7 @@ class Component extends DCLogic {
   renderVals() {
     const eff = this.effCrop();
     return {
+      onTag: (e) => this.flipTag(e.target),
       clock: this.state.clock,
       wifi3: this.state.wifiLvl >= 3 ? 1 : 0.3,
       wifi2: this.state.wifiLvl >= 2 ? 1 : 0.3,
