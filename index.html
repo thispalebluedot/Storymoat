@@ -803,7 +803,7 @@ class Component extends DCLogic {
       headline: lines[0],
       line1: lines[1],
       line2: lines[2],
-      cardTransform: s.menu ? 'rotate(0deg) scale(1, 1)' : 'rotate(' + (-s.turns * 90) + 'deg) scale(' + sx + ', ' + k + ')',
+      cardTransform: (s.menu || s.share) ? 'rotate(0deg) scale(1, 1)' : 'rotate(' + (-s.turns * 90) + 'deg) scale(' + sx + ', ' + k + ')',
       draw: s.draw,
       penBg: s.draw ? '#E9E5E3' : 'transparent',
       penColor: s.draw ? '#1A1716' : '#ffffff',
