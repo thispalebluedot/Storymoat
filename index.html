@@ -646,6 +646,7 @@ class Component extends DCLogic {
         p.lineTo(R[k][0], R[k][1]);
         p.closePath();
       }
+      ctx.fillStyle = s.ink || '#ffffff';
       for (let bi = 0; bi < NB; bi++) {
         if (!paths[bi]) continue;
         ctx.globalAlpha = ((bi + 0.5) / NB) * 0.95;
@@ -907,7 +908,8 @@ class Component extends DCLogic {
         if (!this.state.draw || !this.canvas) return;
         if (e.currentTarget.setPointerCapture) e.currentTarget.setPointerCapture(e.pointerId);
         this.drawing = true;
-        this.strokes.push({ pts: [this.point(e).concat(performance.now())], end: null });
+        const inks = ['#ffffff', '#ffffff', '#FFD27A', '#FF9B54', '#F2635F', '#E58AB0', '#FFE9C7'];
+        this.strokes.push({ pts: [this.point(e).concat(performance.now())], end: null, ink: inks[Math.floor(Math.random() * inks.length)] });
         this.animate();
         this.inkEmail(e);
       },
