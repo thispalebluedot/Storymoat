@@ -103,7 +103,7 @@ button:focus-visible,a:focus-visible{outline:2px solid #ffffff;outline-offset:3p
 <div aria-live="polite" style="position: relative; flex: 1; text-align: center; font-size: 15px; letter-spacing: 0.01em">
 <sc-if value="{{ showStatus }}" hint-placeholder-val="{{ false }}"><span style="color: #E2CFCB">{{ statusText }}</span></sc-if>
 <sc-if value="{{ showLabel }}" hint-placeholder-val="{{ false }}"><span aria-live="polite" style="position: absolute; left: 0; right: 0; bottom: 100%; display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 11px; color: #ffffff; margin-bottom: 8px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>Email copied</span></sc-if>
-<sc-if value="{{ showTag }}" hint-placeholder-val="{{ false }}"><span onClick="{{ onTag }}" style="cursor: pointer; display: inline-block; padding: 4px 9px; color: rgba(255,255,255,0.55); font-size: 14px; animation: rowIn 0.4s ease both">storytelling for the AI era</span></sc-if>
+<sc-if value="{{ showTag }}" hint-placeholder-val="{{ false }}"><span onClick="{{ onTag }}" style="cursor: pointer; display: inline-block; padding: 4px 9px; color: rgba(255,255,255,0.55); font-size: 14px; animation: rowIn 0.4s ease both">{{ tagText }}</span></sc-if>
 <sc-if value="{{ showEmail }}" hint-placeholder-val="{{ true }}"><span style="position: relative; display: inline-block"><button ref="{{ setBtn }}" type="button" aria-label="Copy email address" onClick="{{ onCopyText }}" style="display: inline-block; padding: 4px 9px; border-radius: 7px; border: 0; font: inherit; cursor: pointer; transition: background 0.2s ease; color: {{ emailColor }}; background: {{ emailBg }}">hello@storymoat.io</button></span></sc-if>
 </div>
 </div>
@@ -114,7 +114,7 @@ button:focus-visible,a:focus-visible{outline:2px solid #ffffff;outline-offset:3p
 <div role="dialog" aria-label="Get in touch" style="position: fixed; left: 0; right: 0; bottom: 0; z-index: 4; box-sizing: border-box; background: #1A1716; border: 0; border-top: 1px solid rgba(255,255,255,0.1); border-radius: 28px 28px 0 0; padding: 22px 20px 32px; display: flex; flex-direction: column; gap: 20px">
 <div style="font-size: 16px; font-weight: 600">Get in touch</div>
 <div style="display: flex; justify-content: flex-start; gap: 28px">
-<a href="https://wa.me/?text=Hi%20storymoat" target="_blank" rel="noopener" style="display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 64px; color: #ffffff; text-decoration: none; font-size: 13px"><span style="width: 56px; height: 56px; border-radius: 28px; background: rgba(255,255,255,0.1); display: grid; place-items: center"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></span>WhatsApp</a>
+<a href="https://wa.me/447835940626?text=Hi%20storymoat" target="_blank" rel="noopener" style="display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 64px; color: #ffffff; text-decoration: none; font-size: 13px"><span style="width: 56px; height: 56px; border-radius: 28px; background: rgba(255,255,255,0.1); display: grid; place-items: center"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></span>WhatsApp</a>
 <a href="mailto:hello@storymoat.io" target="_blank" rel="noopener" style="display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 64px; color: #ffffff; text-decoration: none; font-size: 13px"><span style="width: 56px; height: 56px; border-radius: 28px; background: rgba(255,255,255,0.1); display: grid; place-items: center"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7" /> <rect x="2" y="4" width="20" height="16" rx="2" /></svg></span>Email</a>
 <a href="https://noproductmoat.substack.com" target="_blank" rel="noopener" style="margin-left: auto; display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 64px; color: #ffffff; text-decoration: none; font-size: 13px"><span style="width: 56px; height: 56px; border-radius: 28px; background: rgba(255,255,255,0.1); display: grid; place-items: center"><svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M22.539 8.242H1.46V5.406h21.08v2.836zM1.46 10.812V24L12 18.11 22.54 24V10.812H1.46zM22.54 0H1.46v2.836h21.08V0z" /></svg></span>Writing</a>
 </div>
@@ -359,10 +359,30 @@ class Component extends DCLogic {
     ];
   }
 
+  drawMoat() {
+    if (!this.card) return;
+    this.moatFired = true;
+    try { navigator.vibrate && navigator.vibrate(12); } catch (e) {}
+    const host = this.card.parentElement;
+    if (!host || host.querySelector('[data-moat]')) return;
+    const m = document.createElement('div');
+    m.setAttribute('data-moat', '1');
+    m.setAttribute('data-keep', '1');
+    m.style.cssText = 'position:absolute;left:-9px;top:-9px;right:-9px;bottom:-9px;border:1px solid rgba(255,244,236,0.55);border-radius:2px;pointer-events:none;z-index:2';
+    host.appendChild(m);
+    const a = m.animate([
+      { opacity: 0, transform: 'scale(1.06)' },
+      { opacity: 1, transform: 'scale(1)', offset: 0.3 },
+      { opacity: 1, transform: 'scale(1)', offset: 0.7 },
+      { opacity: 0, transform: 'scale(0.995)' }
+    ], { duration: 3200, easing: 'ease-in-out' });
+    a.onfinish = () => m.remove();
+  }
+
   flipTag(el) {
     if (!el || el.__busy) return;
     el.__busy = true;
-    const A = 'storytelling for the AI era';
+    const A = el.__orig || (el.__orig = el.textContent);
     const B = 'your story is the moat.\nnot your product.';
     const next = el.__alt ? A : B;
     el.__alt = !el.__alt;
@@ -439,6 +459,17 @@ class Component extends DCLogic {
   }
 
   componentDidMount() {
+    this.moatDown = (e) => {
+      const t = e.target;
+      if (!(t && t.closest && t.closest('[data-lit="5"]'))) return;
+      clearTimeout(this.moatT);
+      this.moatT = setTimeout(() => this.drawMoat(), 650);
+    };
+    this.moatCancel = () => { clearTimeout(this.moatT); if (this.moatFired) setTimeout(() => { this.moatFired = false; }, 500); };
+    document.addEventListener('pointerdown', this.moatDown, true);
+    document.addEventListener('pointerup', this.moatCancel, true);
+    document.addEventListener('pointercancel', this.moatCancel, true);
+    document.addEventListener('pointermove', (e) => { if (this.moatT && e.buttons === 0) this.moatCancel(); }, true);
     if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => this.fitTag());
     setTimeout(() => this.fitTag(), 300);
     window.addEventListener('resize', this.handleResize);
@@ -668,6 +699,7 @@ class Component extends DCLogic {
     const hr = new Date().getHours();
     const night = hr >= 20 || hr < 6;
     return {
+      tagText: (() => { const h = new Date().getHours(); return h >= 0 && h < 5 ? "it's late. good stories are." : 'storytelling for the AI era'; })(),
       onTag: (e) => this.flipTag(e.target),
       markColor: night ? '#FFE3CC' : '#ffffff',
       barOpacity: s.idle && !s.draw && !s.menu && !s.share ? 0 : 1,
@@ -735,7 +767,7 @@ class Component extends DCLogic {
       showSplash: s.splash,
       showMain: !s.splash,
       onEnter: () => this.setState({ splash: false }),
-      onSplash: () => this.setState(this.state.menu ? { menu: false } : { splash: true }),
+      onSplash: () => this.moatFired ? null : this.setState(this.state.menu ? { menu: false } : { splash: true }),
       cropT: eff.t + 'px',
       cropB: eff.b + 'px',
       cropL: eff.l + 'px',

@@ -341,7 +341,7 @@ class Component extends DCLogic {
   flipTag(el) {
     if (!el || el.__busy) return;
     el.__busy = true;
-    const A = 'storytelling for the AI era';
+    const A = el.__orig || (el.__orig = el.textContent);
     const B = 'your story is the moat.\nnot your product.';
     const next = el.__alt ? A : B;
     el.__alt = !el.__alt;
