@@ -699,7 +699,7 @@ class Component extends DCLogic {
     const hr = new Date().getHours();
     const night = hr >= 20 || hr < 6;
     return {
-      tagText: (() => { const h = new Date().getHours(); return h >= 0 && h < 5 ? "it's late. good stories are." : 'storytelling for the AI era'; })(),
+      tagText: (() => { const h = new Date().getHours(); return h >= 0 && h < 5 ? "good stories are told at night." : 'storytelling for the AI era'; })(),
       onTag: (e) => this.flipTag(e.target),
       markColor: night ? '#FFE3CC' : '#ffffff',
       barOpacity: s.idle && !s.draw && !s.menu && !s.share ? 0 : 1,
