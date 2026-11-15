@@ -75,6 +75,11 @@ button:focus-visible,a:focus-visible{outline:2px solid #ffffff;outline-offset:3p
 </div>
 
 <div style="position: relative; display: flex; justify-content: center; align-items: center; min-height: 80px; margin-bottom: 8px; padding: 0 12px; font-size: 15px; letter-spacing: 0.01em">
+<div aria-live="polite" style="position: relative; text-align: center">
+<sc-if value="{{ showEmailBlocked }}" hint-placeholder-val="{{ false }}"><span style="color: #E2CFCB">Copy is blocked here</span></sc-if>
+<sc-if value="{{ showLabel }}" hint-placeholder-val="{{ false }}"><span style="position: absolute; left: 0; right: 0; bottom: 100%; display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 11px; color: #ffffff; margin-bottom: 8px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>Email copied</span></sc-if>
+<sc-if value="{{ showEmail }}" hint-placeholder-val="{{ true }}"><span style="position: relative; display: inline-block"><button type="button" aria-label="Copy email address" onClick="{{ onCopyText }}" style="display: inline-block; padding: 4px 9px; border-radius: 7px; border: 0; font: inherit; cursor: pointer; transition: background 0.2s ease; color: {{ emailColor }}; background: {{ emailBg }}">hello@storymoat.io</button></span></sc-if>
+</div>
 </div>
 
 </div>
