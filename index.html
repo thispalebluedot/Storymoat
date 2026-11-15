@@ -105,7 +105,7 @@ button:focus-visible,a:focus-visible{outline:2px solid #ffffff;outline-offset:3p
 <sc-if value="{{ showLabel }}" hint-placeholder-val="{{ false }}"><span aria-live="polite" style="position: absolute; left: 0; right: 0; bottom: 100%; display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 11px; color: #ffffff; margin-bottom: 8px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>Email copied</span></sc-if>
 <sc-if value="{{ showQuoteLabel }}" hint-placeholder-val="{{ false }}"><span aria-live="polite" style="position: absolute; left: 0; right: 0; bottom: 100%; display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 11px; color: #ffffff; margin-bottom: 8px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>Text copied</span></sc-if>
 <sc-if value="{{ showTag }}" hint-placeholder-val="{{ false }}"><span style="position: relative; display: inline-block"><button type="button" aria-label="Copy quote" onClick="{{ onCopyQuote }}" style="min-height: 3.4em; vertical-align: top; text-align: center; white-space: pre-line; display: inline-block; padding: 4px 9px; border-radius: 7px; border: 0; font: inherit; font-size: 14px; cursor: pointer; transition: background 0.2s ease, color 0.2s ease; animation: rowIn 0.4s ease both; color: {{ quoteColor }}; background: {{ quoteBg }}">{{ tagText }}</button></span></sc-if>
-<sc-if value="{{ showEmail }}" hint-placeholder-val="{{ true }}"><span style="position: relative; display: inline-block"><button ref="{{ setBtn }}" type="button" aria-label="Copy email address" onClick="{{ onCopyText }}" style="display: inline-block; padding: 4px 9px; border-radius: 7px; border: 0; font: inherit; cursor: pointer; transition: background 0.2s ease; color: {{ emailColor }}; background: {{ emailBg }}">hello@storymoat.io</button></span></sc-if>
+<sc-if value="{{ showEmail }}" hint-placeholder-val="{{ true }}"><span style="position: relative; display: inline-block"><button ref="{{ setBtn }}" type="button" aria-label="Copy email address" onClick="{{ onCopyText }}" style="display: inline-block; padding: 4px 9px; border-radius: 7px; border: 0; font: inherit; cursor: pointer; transition: background 0.2s ease, color 0.3s ease, font-weight 0.3s ease; font-weight: {{ emailWeight }}; color: {{ emailColor }}; background: {{ emailBg }}">hello@storymoat.io</button></span></sc-if>
 </div>
 </div>
 </sc-if>
@@ -136,7 +136,7 @@ button:focus-visible,a:focus-visible{outline:2px solid #ffffff;outline-offset:3p
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { net: '', wifiLvl: 3, flip: false, turns: 0, draw: false, menu: false, share: false, status: '', emailPhase: 'idle', quotePhase: 'idle', splash: false, lightY: null, held: null, idle: false, clock: this.getClock(), crop: { l: 0, t: 0, r: 0, b: 0 } };
+    this.state = { net: '', wifiLvl: 3, flip: false, turns: 0, draw: false, menu: false, share: false, status: '', emailPhase: 'idle', emailInk: false, quotePhase: 'idle', splash: false, lightY: null, held: null, idle: false, clock: this.getClock(), crop: { l: 0, t: 0, r: 0, b: 0 } };
     this.strokes = [];
     this.drawing = false;
     this.lighting = false;
@@ -358,6 +358,18 @@ class Component extends DCLogic {
       'We help you find yours',
       'and tell it to the world.'
     ];
+  }
+
+  inkEmail(e) {
+    const b = this.btnEl;
+    if (!b || !e) return;
+    const r = b.getBoundingClientRect();
+    if (!r.width) return;
+    const pad = 8;
+    if (e.clientX >= r.left - pad && e.clientX <= r.right + pad && e.clientY >= r.top - pad && e.clientY <= r.bottom + pad) {
+      clearTimeout(this.inkT);
+      if (!this.state.emailInk) { try { navigator.vibrate && navigator.vibrate(8); } catch (er) {} this.setState({ emailInk: true }); }
+    }
   }
 
   drawMoat() {
@@ -820,7 +832,8 @@ class Component extends DCLogic {
       showLabel: !s.status && !s.menu && s.emailPhase === 'selected',
       tagOp: (s.status || s.emailPhase === 'selected') ? 0 : 1,
       emailBg: s.emailPhase === 'selected' ? '#FFD60A' : 'transparent',
-      emailColor: s.emailPhase === 'selected' ? '#1A1716' : '#E2CFCB',
+      emailColor: s.emailPhase === 'selected' ? '#1A1716' : (s.emailInk ? '#FFD60A' : '#E2CFCB'),
+      emailWeight: s.emailInk ? 700 : 400,
       statusText: s.status,
       setCanvas: this.setCanvas,
       onDown: (e) => {
@@ -829,6 +842,7 @@ class Component extends DCLogic {
         this.drawing = true;
         this.strokes.push({ pts: [this.point(e).concat(performance.now())], end: null });
         this.animate();
+        this.inkEmail(e);
       },
       onMove: (e) => {
         if (!this.drawing) return;
@@ -836,8 +850,11 @@ class Component extends DCLogic {
         if (!s) return;
         s.pts.push(this.point(e).concat(performance.now()));
         this.redraw();
+        this.inkEmail(e);
       },
       onUp: () => {
+        clearTimeout(this.inkT);
+        if (this.state.emailInk) this.inkT = setTimeout(() => this.setState({ emailInk: false }), 3000);
         if (!this.drawing) return;
         this.drawing = false;
         const s = this.strokes[this.strokes.length - 1];
