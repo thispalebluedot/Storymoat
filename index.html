@@ -109,7 +109,7 @@ button:focus-visible,a:focus-visible{outline:2px solid #ffffff;outline-offset:3p
 </div>
 </div>
 </sc-if>
-<canvas ref="{{ setCanvas }}" aria-label="Drawing layer" onPointerDown="{{ onDown }}" onPointerMove="{{ onMove }}" onPointerUp="{{ onUp }}" onPointerCancel="{{ onUp }}" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; touch-action: none; cursor: crosshair; pointer-events: {{ canvasPE }}"></canvas>
+<canvas ref="{{ setCanvas }}" aria-label="Drawing layer" onPointerDown="{{ onDown }}" onPointerMove="{{ onMove }}" onPointerUp="{{ onUp }}" onPointerCancel="{{ onUp }}" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; height: 100dvh; z-index: 1; touch-action: none; cursor: crosshair; pointer-events: {{ canvasPE }}"></canvas>
 <sc-if value="{{ shareOpen }}" hint-placeholder-val="{{ false }}">
 <button type="button" aria-label="Close share options" onClick="{{ onShare }}" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100dvh; z-index: 3; border: 0; padding: 0; background: rgba(0,0,0,0.45); cursor: default"></button>
 <div role="dialog" aria-label="Get in touch" style="position: fixed; left: 0; right: 0; bottom: 0; z-index: 4; box-sizing: border-box; background: #1A1716; border: 0; border-top: 1px solid rgba(255,255,255,0.1); border-radius: 28px 28px 0 0; padding: 22px 20px 32px; display: flex; flex-direction: column; gap: 20px">
