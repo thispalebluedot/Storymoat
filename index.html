@@ -700,7 +700,7 @@ class Component extends DCLogic {
     const hr = new Date().getHours();
     const night = hr >= 20 || hr < 6;
     return {
-      tagText: ['people remember how\nyou make them feel.', 'your story is the moat.\nnot your product.'][((this.quoteIdx || 0) % 2 + 2) % 2],
+      tagText: ['people remember how\nyou make them feel.', 'your story is the moat.\nnot your product.', 'less is more.'][((this.quoteIdx || 0) % 3 + 3) % 3],
       onTag: (e) => this.flipTag(e.target),
       markColor: night ? '#FFE3CC' : '#ffffff',
       barOpacity: s.idle && !s.draw && !s.menu && !s.share ? 0 : 1,
