@@ -475,5 +475,29 @@ class Component extends DCLogic {
 
 dcMount(Component);
 </script>
+<script>
+(function(){
+var order=['/','/method','/pricing','/customers','/about'];
+var p=location.pathname.replace(/\.html$/,'').replace(/\/$/,'')||'/';
+var i=order.indexOf(p);
+if(i<1)return;
+var s=null;
+document.addEventListener('pointerdown',function(e){
+  if(e.pointerType==='mouse'&&e.buttons!==1)return;
+  if(e.target.closest&&e.target.closest('button,a,canvas'))return;
+  s={x:e.clientX,y:e.clientY,t:Date.now()};
+},true);
+document.addEventListener('pointerup',function(e){
+  if(!s)return;var d=s;s=null;
+  var dx=e.clientX-d.x,dy=e.clientY-d.y;
+  if(Math.abs(dx)<80||Math.abs(dy)>60||Date.now()-d.t>700)return;
+  var j=dx<0?i+1:i-1;
+  if(j<0||j>=order.length)return;
+  document.body.style.transition='opacity .25s ease';document.body.style.opacity='0';
+  setTimeout(function(){location.href=order[j];},230);
+},true);
+window.addEventListener('pageshow',function(){document.body.style.opacity='1';});
+})();
+</script>
 </body>
 </html>

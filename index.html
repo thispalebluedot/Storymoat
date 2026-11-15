@@ -103,7 +103,7 @@ button:focus-visible,a:focus-visible{outline:2px solid #ffffff;outline-offset:3p
 <div aria-live="polite" style="position: relative; flex: 1; text-align: center; font-size: 15px; letter-spacing: 0.01em">
 <sc-if value="{{ showStatus }}" hint-placeholder-val="{{ false }}"><span style="color: #E2CFCB">{{ statusText }}</span></sc-if>
 <sc-if value="{{ showLabel }}" hint-placeholder-val="{{ false }}"><span aria-live="polite" style="position: absolute; left: 0; right: 0; bottom: 100%; display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 11px; color: #ffffff; margin-bottom: 8px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>Email copied</span></sc-if>
-<sc-if value="{{ showTag }}" hint-placeholder-val="{{ false }}"><span onClick="{{ onTag }}" style="cursor: pointer; display: inline-block; padding: 4px 9px; color: rgba(255,255,255,0.55); font-size: 14px; animation: rowIn 0.4s ease both">{{ tagText }}</span></sc-if>
+<sc-if value="{{ showTag }}" hint-placeholder-val="{{ false }}"><span onClick="{{ onTag }}" style="min-height: 3.4em; vertical-align: top; cursor: pointer; display: inline-block; padding: 4px 9px; color: rgba(255,255,255,0.55); font-size: 14px; animation: rowIn 0.4s ease both">{{ tagText }}</span></sc-if>
 <sc-if value="{{ showEmail }}" hint-placeholder-val="{{ true }}"><span style="position: relative; display: inline-block"><button ref="{{ setBtn }}" type="button" aria-label="Copy email address" onClick="{{ onCopyText }}" style="display: inline-block; padding: 4px 9px; border-radius: 7px; border: 0; font: inherit; cursor: pointer; transition: background 0.2s ease; color: {{ emailColor }}; background: {{ emailBg }}">hello@storymoat.io</button></span></sc-if>
 </div>
 </div>
@@ -388,24 +388,21 @@ class Component extends DCLogic {
     const next = el.__alt ? A : B;
     el.__alt = !el.__alt;
     clearTimeout(el.__t);
-    if (el.__alt) el.__t = setTimeout(() => this.flipTag(el), 4200);
+    if (el.__alt) el.__t = setTimeout(() => this.flipTag(el), 4800);
     el.style.whiteSpace = 'pre-line';
     el.style.textAlign = 'center';
-    el.style.transition = 'opacity 0.5s ease, filter 0.5s ease, transform 0.5s ease';
-    el.style.transform = 'translateY(5px)';
-    el.style.filter = 'blur(5px)';
+    el.style.verticalAlign = 'top';
+    el.style.minHeight = '3.4em';
+    el.style.willChange = 'opacity';
+    el.style.transition = 'opacity 0.6s ease';
     el.style.opacity = '0';
     setTimeout(() => {
       el.textContent = next;
-      el.style.transition = 'none';
-      el.style.transform = 'translateY(-5px)';
       void el.offsetWidth;
-      el.style.transition = 'opacity 0.7s ease, filter 0.7s ease, transform 0.7s cubic-bezier(0.22, 1, 0.36, 1)';
-      el.style.transform = 'translateY(0)';
-      el.style.filter = 'blur(0)';
+      el.style.transition = 'opacity 0.9s ease';
       el.style.opacity = '1';
-      setTimeout(() => { el.__busy = false; }, 700);
-    }, 520);
+      setTimeout(() => { el.__busy = false; }, 900);
+    }, 620);
   }
 
   attachSpark(el, allow) {
@@ -500,6 +497,9 @@ class Component extends DCLogic {
         if (Date.now() - Number(m[1]) < 15000) this.setState({ menu: true, splash: false, draw: false });
       }
     } catch (e) {}
+    try { if (history.state && history.state.menu) { this.setState({ menu: true, splash: false, draw: false }); history.replaceState(null, ''); } } catch (e) {}
+    this.pageShow = (e) => { try { if (e.persisted === false && history.state && history.state.menu) { this.setState({ menu: true }); history.replaceState(null, ''); } } catch (er) {} };
+    window.addEventListener('pageshow', this.pageShow);
     this.redraw();
   }
 
@@ -861,7 +861,8 @@ class Component extends DCLogic {
       onNavPick: (e) => {
         const ext = e && e.currentTarget && e.currentTarget.getAttribute('target') === '_blank';
         this.setState({ draw: false });
-        if (!ext) setTimeout(() => this.setState({ menu: false }), 250);
+        if (ext) setTimeout(() => this.setState({ menu: false }), 250);
+        else { try { history.replaceState({ menu: true }, ''); } catch (er) {} }
       },
       onShare: () => this.setState({ share: !this.state.share, draw: false }),
       onCopyLink: () => this.copy('https://storymoat.io', 'Link copied'),
@@ -878,6 +879,30 @@ class Component extends DCLogic {
 }
 
 dcMount(Component);
+</script>
+<script>
+(function(){
+var order=['/','/method','/pricing','/customers','/about'];
+var p=location.pathname.replace(/\.html$/,'').replace(/\/$/,'')||'/';
+var i=order.indexOf(p);
+if(i<1)return;
+var s=null;
+document.addEventListener('pointerdown',function(e){
+  if(e.pointerType==='mouse'&&e.buttons!==1)return;
+  if(e.target.closest&&e.target.closest('button,a,canvas'))return;
+  s={x:e.clientX,y:e.clientY,t:Date.now()};
+},true);
+document.addEventListener('pointerup',function(e){
+  if(!s)return;var d=s;s=null;
+  var dx=e.clientX-d.x,dy=e.clientY-d.y;
+  if(Math.abs(dx)<80||Math.abs(dy)>60||Date.now()-d.t>700)return;
+  var j=dx<0?i+1:i-1;
+  if(j<0||j>=order.length)return;
+  document.body.style.transition='opacity .25s ease';document.body.style.opacity='0';
+  setTimeout(function(){location.href=order[j];},230);
+},true);
+window.addEventListener('pageshow',function(){document.body.style.opacity='1';});
+})();
 </script>
 </body>
 </html>
