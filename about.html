@@ -342,10 +342,11 @@ class Component extends DCLogic {
     if (!el || el.__busy) return;
     el.__busy = true;
     const A = 'storytelling for the AI era';
-    const B = 'your story is the moat. not your product.';
+    const B = 'your story is the moat.\nnot your product.';
     const next = el.__alt ? A : B;
     el.__alt = !el.__alt;
-    el.style.whiteSpace = 'nowrap';
+    el.style.whiteSpace = 'pre-line';
+    el.style.textAlign = 'center';
     el.style.transition = 'transform 0.28s ease, opacity 0.28s ease';
     el.style.transform = 'rotateX(90deg)';
     el.style.opacity = '0';
