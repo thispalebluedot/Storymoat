@@ -302,6 +302,7 @@ class Component extends DCLogic {
       items.forEach((el, i) => {
         const f = Math.max(0, 1 - ds[i] / 90);
         if (i === best) set(el, 1, 1.06, 6, '0.9px');
+        else if (el.tagName === 'A') set(el, 0.6 + 0.3 * f * f, 1, 0, '0px');
         else set(el, 0.6 + 0.3 * f * f, 1 + 0.025 * f, 3 * f, '0px');
       });
       if (best !== lastBest) {
