@@ -75,7 +75,7 @@ button:focus-visible,a:focus-visible{outline:2px solid #ffffff;outline-offset:3p
 </div>
 
 <div style="position: relative; display: flex; justify-content: center; align-items: center; min-height: 48px; margin-bottom: 28px; font-size: 15px; letter-spacing: 0.01em">
-<span style="display: inline-block; padding: 4px 9px; color: rgba(255,255,255,0.55); font-size: 14px">storytelling for the AI era</span>
+<span onClick="{{ onTag }}" style="cursor: pointer; perspective: 200px; display: inline-block; padding: 4px 9px; color: rgba(255,255,255,0.55); font-size: 14px">storytelling for the AI era</span>
 </div>
 
 </div>
@@ -338,6 +338,24 @@ class Component extends DCLogic {
     };
   }
 
+  flipTag(el) {
+    if (!el || el.__flip) return;
+    el.__flip = true;
+    const orig = el.textContent;
+    const to = (txt, next) => {
+      el.style.transition = 'transform 0.28s ease, opacity 0.28s ease';
+      el.style.transform = 'rotateX(90deg)';
+      el.style.opacity = '0';
+      setTimeout(() => {
+        el.textContent = txt;
+        el.style.transform = 'rotateX(0deg)';
+        el.style.opacity = '1';
+        next && setTimeout(next, 2600);
+      }, 290);
+    };
+    to('your story is the moat', () => to(orig, () => { el.__flip = false; }));
+  }
+
   attachSpark(el, allow) {
     if (!el) return () => {};
     try { if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return () => {}; } catch (e) {}
@@ -409,6 +427,7 @@ class Component extends DCLogic {
   renderVals() {
     const eff = this.effCrop();
     return {
+      onTag: (e) => this.flipTag(e.target),
       clock: this.state.clock,
       wifi3: this.state.wifiLvl >= 3 ? 1 : 0.3,
       wifi2: this.state.wifiLvl >= 2 ? 1 : 0.3,
