@@ -25,7 +25,7 @@ button:focus-visible,a:focus-visible{outline:2px solid #ffffff;outline-offset:3p
 <link rel="preload" href="/fonts/inter-700.woff2" as="font" type="font/woff2" crossorigin>
 <script type="speculationrules">{"prefetch":[{"urls":["/","/method","/pricing","/customers","/about"],"eagerness":"eager"}]}</script>
 <link rel="prefetch" href="/method"><link rel="prefetch" href="/pricing"><link rel="prefetch" href="/customers"><link rel="prefetch" href="/about">
-<style>html{overscroll-behavior:none}*{touch-action:manipulation;-webkit-tap-highlight-color:transparent}@font-face{font-family:Inter;font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/inter-400.woff2) format('woff2')}@font-face{font-family:Inter;font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/inter-500.woff2) format('woff2')}@font-face{font-family:Inter;font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/inter-600.woff2) format('woff2')}@font-face{font-family:Inter;font-style:normal;font-weight:700 800;font-display:swap;src:url(/fonts/inter-700.woff2) format('woff2')}@view-transition{navigation:auto}[style*='linear-gradient(180deg, #404041']{background:transparent !important;view-transition-name:page}::view-transition-old(root),::view-transition-new(root){animation:none}::view-transition-old(page),::view-transition-new(page){animation-duration:.3s;animation-timing-function:ease}html{background:linear-gradient(180deg,#404041 0%,#3A3535 18%,#2E1716 36%,#5A1A10 52%,#5A2D25 66%,#50393A 100%) no-repeat;background-size:100% 100vh;background-size:100% 100dvh;background-color:#50393A}body{margin:0;background:transparent !important}*{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}::selection{background:transparent;color:inherit}::-moz-selection{background:transparent;color:inherit}</style>
+<style>html{overscroll-behavior:none}html{-webkit-text-size-adjust:100%}*{touch-action:manipulation;-webkit-tap-highlight-color:transparent}@font-face{font-family:Inter;font-style:normal;font-weight:400;font-display:swap;src:url(/fonts/inter-400.woff2) format('woff2')}@font-face{font-family:Inter;font-style:normal;font-weight:500;font-display:swap;src:url(/fonts/inter-500.woff2) format('woff2')}@font-face{font-family:Inter;font-style:normal;font-weight:600;font-display:swap;src:url(/fonts/inter-600.woff2) format('woff2')}@font-face{font-family:Inter;font-style:normal;font-weight:700 800;font-display:swap;src:url(/fonts/inter-700.woff2) format('woff2')}@view-transition{navigation:auto}[style*='linear-gradient(180deg, #404041']{background:transparent !important;view-transition-name:page}::view-transition-old(root),::view-transition-new(root){animation:none}::view-transition-old(page),::view-transition-new(page){animation-duration:.3s;animation-timing-function:ease}html{background:linear-gradient(180deg,#404041 0%,#3A3535 18%,#2E1716 36%,#5A1A10 52%,#5A2D25 66%,#50393A 100%) no-repeat;background-size:100% 100vh;background-size:100% 100dvh;background-color:#50393A}body{margin:0;background:transparent !important}*{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}::selection{background:transparent;color:inherit}::-moz-selection{background:transparent;color:inherit}</style>
 </head>
 <body>
 <div id="root" style="display:contents"></div>
@@ -115,7 +115,7 @@ button:focus-visible,a:focus-visible{outline:2px solid #ffffff;outline-offset:3p
 </sc-if>
 <canvas ref="{{ setCanvas }}" aria-label="Drawing layer" onPointerDown="{{ onDown }}" onPointerMove="{{ onMove }}" onPointerUp="{{ onUp }}" onPointerCancel="{{ onUp }}" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; height: 100dvh; z-index: 1; touch-action: none; cursor: crosshair; pointer-events: {{ canvasPE }}"></canvas>
 <button type="button" aria-label="Close share options" onClick="{{ onShare }}" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100dvh; z-index: 3; border: 0; padding: 0; background: rgba(0,0,0,0.45); cursor: default; opacity: {{ shareOp }}; pointer-events: {{ sharePE }}; transition: opacity 0.5s ease"></button>
-<div role="dialog" aria-label="Get in touch" style="position: fixed; left: 50%; transform: translateX(-50%) translateY({{ shareY }}); transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear {{ shareVisDelay }}; visibility: {{ shareVis }}; pointer-events: {{ sharePE }}; width: min(100vw, calc(100dvh / 2)); bottom: 0; z-index: 4; box-sizing: border-box; background: #1A1716; border: 0; border-top: 1px solid rgba(255,255,255,0.1); border-radius: 28px 28px 0 0; padding: 22px 20px 32px; display: flex; flex-direction: column; gap: 20px">
+<div role="dialog" aria-label="Get in touch" style="position: fixed; left: 50%; transform: translateX(-50%) translateY({{ shareY }}); transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), visibility 0s linear {{ shareVisDelay }}; visibility: {{ shareVis }}; pointer-events: {{ sharePE }}; width: {{ shareW }}; bottom: 0; z-index: 4; box-sizing: border-box; background: #1A1716; border: 0; border-top: 1px solid rgba(255,255,255,0.1); border-radius: 28px 28px 0 0; padding: 22px 20px 32px; display: flex; flex-direction: column; gap: 20px">
 <div style="font-size: 16px; font-weight: 600">Get in touch</div>
 <div style="display: flex; justify-content: flex-start; gap: 28px">
 <a href="https://wa.me/447835940626?text=Hi%20storymoat" target="_blank" rel="noopener" style="display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 64px; color: #ffffff; text-decoration: none; font-size: 13px"><span style="width: 56px; height: 56px; border-radius: 28px; background: rgba(255,255,255,0.1); display: grid; place-items: center"><svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/></svg></span>WhatsApp</a>
@@ -382,6 +382,29 @@ class Component extends DCLogic {
     }, 20000);
   }
 
+  discoSquares() {
+    if (!this.card || document.querySelector('[data-disco]')) return;
+    try { navigator.vibrate && navigator.vibrate([10, 40, 10]); } catch (e) {}
+    const r = this.card.getBoundingClientRect();
+    const cols = ['#FFD27A', '#FF9B54', '#F2635F', '#C9487A', '#FFE9C7'];
+    cols.forEach((c, i) => {
+      const d = document.createElement('div');
+      d.setAttribute('data-disco', '1');
+      const off = 5 + i * 7;
+      d.style.cssText = 'position:fixed;pointer-events:none;z-index:2;opacity:0;box-sizing:border-box;border:1px solid ' + c + ';box-shadow:0 0 12px ' + c + '55, inset 0 0 8px ' + c + '22;border-radius:2px;left:' + (r.left - off) + 'px;top:' + (r.top - off) + 'px;width:' + (r.width + off * 2) + 'px;height:' + (r.height + off * 2) + 'px';
+      document.body.appendChild(d);
+      const a = d.animate([
+        { opacity: 0, transform: 'scale(1.05)' },
+        { opacity: 0.8, transform: 'scale(1)', offset: 0.18 },
+        { opacity: 0.2, transform: 'scale(1.012)', offset: 0.4 },
+        { opacity: 0.7, transform: 'scale(1)', offset: 0.6 },
+        { opacity: 0.15, transform: 'scale(1.01)', offset: 0.8 },
+        { opacity: 0, transform: 'scale(1.03)' }
+      ], { duration: 2600, delay: i * 170, easing: 'ease-in-out', fill: 'backwards' });
+      a.onfinish = () => d.remove();
+    });
+  }
+
   drawMoat() {
     if (!this.card) return;
     this.moatFired = true;
@@ -486,6 +509,20 @@ class Component extends DCLogic {
       clearTimeout(this.moatT);
       this.moatT = setTimeout(() => this.drawMoat(), 650);
     };
+    this.tapDown = (e) => { this.tapStart = { x: e.clientX, y: e.clientY }; };
+    this.tapUp = (e) => {
+      const s0 = this.tapStart; this.tapStart = null;
+      const st = this.state;
+      if (!s0 || !this.card || st.menu || st.draw || st.share) return;
+      if (Math.hypot(e.clientX - s0.x, e.clientY - s0.y) > 10) return;
+      if (!(e.target && this.card.contains(e.target))) return;
+      const now = Date.now();
+      this.cardTaps = (now - (this.lastCardTap || 0) < 1000) ? (this.cardTaps || 0) + 1 : 1;
+      this.lastCardTap = now;
+      if (this.cardTaps >= 5) { this.cardTaps = 0; this.discoSquares(); }
+    };
+    document.addEventListener('pointerdown', this.tapDown, true);
+    document.addEventListener('pointerup', this.tapUp, true);
     this.moatCancel = () => { clearTimeout(this.moatT); if (this.moatFired) setTimeout(() => { this.moatFired = false; }, 500); };
     document.addEventListener('pointerdown', this.moatDown, true);
     document.addEventListener('pointerup', this.moatCancel, true);
@@ -658,7 +695,7 @@ class Component extends DCLogic {
       const ta = document.createElement('textarea');
       ta.value = text;
       ta.setAttribute('readonly', '');
-      ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0';
+      ta.style.cssText = 'position:fixed;top:0;left:0;opacity:0;font-size:16px;width:1px;height:1px;border:0;padding:0';
       document.body.appendChild(ta);
       ta.style.userSelect = 'text'; ta.style.webkitUserSelect = 'text';
       ta.select();
@@ -801,7 +838,10 @@ class Component extends DCLogic {
       showSplash: s.splash,
       showMain: !s.splash,
       onEnter: () => this.setState({ splash: false }),
-      onSplash: () => { if (!this.moatFired && this.state.menu) this.setState({ menu: false }); },
+      onSplash: () => {
+        if (this.moatFired) return;
+        if (this.state.menu) this.setState({ menu: false });
+      },
       cropT: eff.t + 'px',
       cropB: eff.b + 'px',
       cropL: eff.l + 'px',
@@ -817,6 +857,7 @@ class Component extends DCLogic {
       setShell: this.setShell,
       setBtn: this.setBtn,
       setTag: this.setTag,
+      shareW: (typeof window !== 'undefined' && window.innerWidth < 700) ? '100vw' : 'min(100vw, calc(100dvh / 2))',
       shareOpen: s.share,
       shareOp: s.share ? 1 : 0,
       sharePE: s.share ? 'auto' : 'none',
@@ -960,7 +1001,9 @@ document.addEventListener('pointerup',function(e){
   location.href=order[j];
 },true);
 window.addEventListener('pageshow',function(){document.body.style.opacity='1';});
+['gesturestart','gesturechange','gestureend'].forEach(function(n){document.addEventListener(n,function(e){e.preventDefault();});});
 })();
 </script>
+<script>['gesturestart','gesturechange','gestureend'].forEach(function(n){document.addEventListener(n,function(e){e.preventDefault();});});</script>
 </body>
 </html>
