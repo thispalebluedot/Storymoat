@@ -103,7 +103,8 @@ button:focus-visible,a:focus-visible{outline:2px solid #ffffff;outline-offset:3p
 <div aria-live="polite" style="position: relative; flex: 1; text-align: center; font-size: 15px; letter-spacing: 0.01em">
 <sc-if value="{{ showStatus }}" hint-placeholder-val="{{ false }}"><span style="color: #E2CFCB">{{ statusText }}</span></sc-if>
 <sc-if value="{{ showLabel }}" hint-placeholder-val="{{ false }}"><span aria-live="polite" style="position: absolute; left: 0; right: 0; bottom: 100%; display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 11px; color: #ffffff; margin-bottom: 8px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>Email copied</span></sc-if>
-<sc-if value="{{ showTag }}" hint-placeholder-val="{{ false }}"><span style="min-height: 3.4em; vertical-align: top; text-align: center; white-space: pre-line; display: inline-block; padding: 4px 9px; color: rgba(255,255,255,0.55); font-size: 14px; animation: rowIn 0.4s ease both">{{ tagText }}</span></sc-if>
+<sc-if value="{{ showQuoteLabel }}" hint-placeholder-val="{{ false }}"><span aria-live="polite" style="position: absolute; left: 0; right: 0; bottom: 100%; display: flex; align-items: center; justify-content: center; gap: 4px; font-size: 11px; color: #ffffff; margin-bottom: 8px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6 9 17l-5-5" /></svg>Text copied</span></sc-if>
+<sc-if value="{{ showTag }}" hint-placeholder-val="{{ false }}"><span style="position: relative; display: inline-block"><button type="button" aria-label="Copy quote" onClick="{{ onCopyQuote }}" style="min-height: 3.4em; vertical-align: top; text-align: center; white-space: pre-line; display: inline-block; padding: 4px 9px; border-radius: 7px; border: 0; font: inherit; font-size: 14px; cursor: pointer; transition: background 0.2s ease, color 0.2s ease; animation: rowIn 0.4s ease both; color: {{ quoteColor }}; background: {{ quoteBg }}">{{ tagText }}</button></span></sc-if>
 <sc-if value="{{ showEmail }}" hint-placeholder-val="{{ true }}"><span style="position: relative; display: inline-block"><button ref="{{ setBtn }}" type="button" aria-label="Copy email address" onClick="{{ onCopyText }}" style="display: inline-block; padding: 4px 9px; border-radius: 7px; border: 0; font: inherit; cursor: pointer; transition: background 0.2s ease; color: {{ emailColor }}; background: {{ emailBg }}">hello@storymoat.io</button></span></sc-if>
 </div>
 </div>
@@ -135,7 +136,7 @@ button:focus-visible,a:focus-visible{outline:2px solid #ffffff;outline-offset:3p
 class Component extends DCLogic {
   constructor(props) {
     super(props);
-    this.state = { net: '', wifiLvl: 3, flip: false, turns: 0, draw: false, menu: false, share: false, status: '', emailPhase: 'idle', splash: false, lightY: null, held: null, idle: false, clock: this.getClock(), crop: { l: 0, t: 0, r: 0, b: 0 } };
+    this.state = { net: '', wifiLvl: 3, flip: false, turns: 0, draw: false, menu: false, share: false, status: '', emailPhase: 'idle', quotePhase: 'idle', splash: false, lightY: null, held: null, idle: false, clock: this.getClock(), crop: { l: 0, t: 0, r: 0, b: 0 } };
     this.strokes = [];
     this.drawing = false;
     this.lighting = false;
@@ -811,6 +812,9 @@ class Component extends DCLogic {
       menuColor: s.menu ? '#1A1716' : 'rgba(255,255,255,0.92)',
       showCopy: !s.menu,
       showStatus: !!s.status,
+      showQuoteLabel: !s.status && s.menu && s.quotePhase === 'selected',
+      quoteBg: s.quotePhase === 'selected' ? '#FFD60A' : 'transparent',
+      quoteColor: s.quotePhase === 'selected' ? '#1A1716' : 'rgba(255,255,255,0.55)',
       showEmail: !s.status && !s.menu && s.emailPhase !== 'copied',
       showTag: !s.status && s.menu,
       showLabel: !s.status && !s.menu && s.emailPhase === 'selected',
@@ -856,7 +860,8 @@ class Component extends DCLogic {
       onMenu: () => {
         const closing = this.state.menu;
         if (!closing) this.quoteIdx = (this.quoteIdx === undefined ? 0 : this.quoteIdx + 1);
-        this.setState({ menu: !closing, draw: false });
+        clearTimeout(this.quoteTimer);
+        this.setState({ menu: !closing, draw: false, quotePhase: 'idle' });
         if (closing) this.wake();
       },
       onNavPick: (e) => {
@@ -867,6 +872,16 @@ class Component extends DCLogic {
       },
       onShare: () => this.setState({ share: !this.state.share, draw: false }),
       onCopyLink: () => this.copy('https://storymoat.io', 'Link copied'),
+      onCopyQuote: () => {
+        clearTimeout(this.quoteTimer);
+        const q = ['people remember how you make them feel.', 'your story is the moat. not your product.', 'less is more.'][((this.quoteIdx || 0) % 3 + 3) % 3];
+        const next = this.state.quotePhase === 'selected' ? 'idle' : 'selected';
+        if (next === 'selected') {
+          try { navigator.clipboard.writeText(q).then(() => {}, () => this.legacyCopy(q)); } catch (e) { this.legacyCopy(q); }
+          this.quoteTimer = setTimeout(() => this.setState({ quotePhase: 'idle' }), 2000);
+        }
+        this.setState({ quotePhase: next });
+      },
       onCopyText: () => {
         clearTimeout(this.emailTimer);
         clearTimeout(this.emailTimer2);
