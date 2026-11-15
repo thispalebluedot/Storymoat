@@ -889,7 +889,7 @@ class Component extends DCLogic {
         const closing = this.state.menu;
         if (!closing) this.quoteIdx = (this.quoteIdx === undefined ? 0 : this.quoteIdx + 1);
         clearTimeout(this.quoteTimer);
-        this.setState({ menu: !closing, draw: false, quotePhase: 'idle' });
+        this.setState(closing ? { menu: false, draw: false, quotePhase: 'idle' } : { menu: true, draw: false, quotePhase: 'idle', flip: false, turns: 0 });
         if (closing) this.wake();
       },
       onNavPick: (e) => {
@@ -898,7 +898,7 @@ class Component extends DCLogic {
         if (ext) setTimeout(() => this.setState({ menu: false }), 250);
         else { try { history.replaceState({ menu: true }, ''); } catch (er) {} }
       },
-      onShare: () => this.setState({ share: !this.state.share, draw: false }),
+      onShare: () => this.setState(this.state.share ? { share: false, draw: false } : { share: true, draw: false, flip: false, turns: 0 }),
       onCopyLink: () => this.copy('https://storymoat.io', 'Link copied'),
       onCopyQuote: () => {
         clearTimeout(this.quoteTimer);
