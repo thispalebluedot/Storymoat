@@ -345,6 +345,8 @@ class Component extends DCLogic {
     const B = 'your story is the moat.\nnot your product.';
     const next = el.__alt ? A : B;
     el.__alt = !el.__alt;
+    clearTimeout(el.__t);
+    if (el.__alt) el.__t = setTimeout(() => this.flipTag(el), 3600);
     el.style.whiteSpace = 'pre-line';
     el.style.textAlign = 'center';
     el.style.transition = 'transform 0.28s ease, opacity 0.28s ease';
