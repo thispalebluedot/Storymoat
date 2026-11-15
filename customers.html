@@ -63,8 +63,8 @@ button:focus-visible,a:focus-visible{outline:2px solid #ffffff;outline-offset:3p
 </div>
 </div>
 
-<div style="position: relative; display: flex; justify-content: center; align-items: center; min-height: 48px; margin-bottom: 28px; font-size: 15px; letter-spacing: 0.01em">
-<span onClick="{{ onTag }}" style="min-height: 3.4em; vertical-align: top; cursor: pointer; display: inline-block; padding: 4px 9px; color: rgba(255,255,255,0.55); font-size: 14px">storytelling for the AI era</span>
+<div onClick="{{ onTag }}" style="position: relative; display: flex; justify-content: center; align-items: center; min-height: 80px; margin-bottom: 8px; padding: 0 12px; cursor: pointer; font-size: 15px; letter-spacing: 0.01em">
+<span data-tag="1" style="min-height: 3.4em; vertical-align: top; cursor: pointer; display: inline-block; padding: 4px 9px; color: rgba(255,255,255,0.55); font-size: 14px">storytelling for the AI era</span>
 </div>
 
 </div>
@@ -422,7 +422,7 @@ class Component extends DCLogic {
   renderVals() {
     const eff = this.effCrop();
     return {
-      onTag: (e) => this.flipTag(e.target),
+      onTag: (e) => this.flipTag(e.currentTarget && e.currentTarget.querySelector ? e.currentTarget.querySelector('[data-tag]') : e.target),
       clock: this.state.clock,
       wifi3: this.state.wifiLvl >= 3 ? 1 : 0.3,
       wifi2: this.state.wifiLvl >= 2 ? 1 : 0.3,
