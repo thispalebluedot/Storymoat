@@ -125,6 +125,7 @@ footer.foot-wrap{background:#181818;color:#fff}
 .nav ul a,.nav .contact{color:var(--ink);border-bottom:1px solid transparent;padding-bottom:2px}.nav ul a:hover,.nav ul a.on,.nav .contact:hover,.nav .contact.on{color:var(--ink);border-bottom-color:currentColor;opacity:1}
 .logo-strip{padding-block:48px;border-bottom:1px solid var(--line)}.logos-label{margin:0 0 24px;font-size:14px;color:var(--ink-2,#666);text-align:center}.logos{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent);mask-image:linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent)}.logos-track{display:flex;align-items:center;gap:72px;width:max-content;animation:logoscroll 50s linear infinite}.logos img{height:34px;width:auto;max-width:160px;object-fit:contain;display:block}.logos img.sm{height:28px}@keyframes logoscroll{to{transform:translateX(calc(-50% - 36px))}}@media (max-width:860px){.logos img{height:26px}.logos img.sm{height:21px}.logos-track{gap:48px}@keyframes logoscroll{to{transform:translateX(calc(-50% - 24px))}}}@media (prefers-reduced-motion:reduce){.logos-track{animation:none}}
 .js main section .wrap>*,.js body>section .wrap>*{opacity:0;transform:translateY(14px);transition:opacity .9s cubic-bezier(.2,.6,.2,1),transform .9s cubic-bezier(.2,.6,.2,1)}.js section.in .wrap>*{opacity:1;transform:none}.js section.in .wrap>*:nth-child(2){transition-delay:.15s}.js section.in .wrap>*:nth-child(3){transition-delay:.3s}.js section.in .wrap>*:nth-child(n+4){transition-delay:.4s}@media (prefers-reduced-motion:reduce){.js section .wrap>*{opacity:1!important;transform:none!important;transition:none!important}}
+.artbg{position:relative;overflow:hidden}.artbg>.bgimg{position:absolute;inset:0;background:url(/art-kandinsky.jpg) center/cover;opacity:.28;filter:saturate(.8)}.artbg>.wrap{position:relative}.artbg .artcap{position:absolute;right:32px;bottom:20px;margin:0;font-size:13px;color:#9a9a9a;letter-spacing:0}
 </style>
 </head>
 <body>
@@ -155,7 +156,7 @@ footer.foot-wrap{background:#181818;color:#fff}
 </div></div></section>
 <section style="padding-top: 0"><div class="wrap split"><div class="head"><p class="eyebrow">What changes</p></div>
 <div class="prose"><p><b>Outside:</b> you build an audience that believes, trusts and cares.</p><p><b>Inside:</b> your story becomes a self-guiding principle for every team.</p><p><a class="btn btn-solid" href="/contact">Book 30-min intro call</a></p></div></div></section>
-<section class="dark" style="min-height: 72vh; display: flex; align-items: center"><div class="wrap" style="width: 100%"><h2 style="font-size: clamp(40px, 6vw, 84px); line-height: 1.06; letter-spacing: -0.045em; max-width: 980px; margin-bottom: 48px">Product is no longer the moat. Your story is.</h2><a class="btn btn-solid" href="/method">See how we work</a></div></section>
+<section class="dark artbg" style="min-height: 72vh; display: flex; align-items: center"><div class="bgimg" aria-hidden="true"></div><div class="wrap" style="width: 100%"><h2 style="font-size: clamp(40px, 6vw, 84px); line-height: 1.06; letter-spacing: -0.045em; max-width: 980px; margin-bottom: 0">Product is no longer the moat. Your story is.</h2></div><p class="artcap">Wassily Kandinsky, <i>Pointed and Round</i>, 1925</p></section>
 </main>
 <footer class="foot-wrap">
 <div class="wrap foot">
