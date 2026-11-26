@@ -174,7 +174,5 @@ io([].slice.call(document.querySelectorAll('.foot-wrap')),function(el){el.classL
 /* 4 swipe who we work with */
 var ww=document.querySelector('.ww');if(ww){var x0=null,y0=null;ww.addEventListener('touchstart',function(e){x0=e.touches[0].clientX;y0=e.touches[0].clientY},{passive:true});ww.addEventListener('touchend',function(e){if(x0===null)return;var dx=e.changedTouches[0].clientX-x0,dy=e.changedTouches[0].clientY-y0;x0=null;if(Math.abs(dx)<50||Math.abs(dx)<Math.abs(dy))return;var t=[].slice.call(ww.querySelectorAll('.ww-tab')),i=t.findIndex(function(b){return b.classList.contains('on')});var n=(i+(dx<0?1:-1)+t.length)%t.length;t[n].click()},{passive:true});}
 })();</script>
-<script src="https://cdn.jsdelivr.net/npm/lenis@1.2.3/dist/lenis.min.js"></script>
-<script>(function(){if(!window.Lenis||window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;var l=new Lenis({lerp:0.12,smoothWheel:true,anchors:true});function raf(t){l.raf(t);requestAnimationFrame(raf)}requestAnimationFrame(raf);var b=document.getElementById('menu-btn');if(b)b.addEventListener('click',function(){document.documentElement.classList.contains('menu-open')?l.stop():l.start()});})();</script>
 </body>
 </html>
